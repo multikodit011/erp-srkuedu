@@ -1,0 +1,2249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        button,
+        select,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            width: 100%;
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: #1d4ed8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .student-name-nav {
+            font-size: 15px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 10px 17px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #fecaca;
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .container {
+            width: min(1200px, calc(100% - 40px));
+            margin: 35px auto 50px;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .page-heading p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* =========================================================
+           SECTION COMMON
+        ========================================================= */
+
+        .section {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .section-title h2 {
+            font-size: 20px;
+            color: #111827;
+        }
+
+        .section-title-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* =========================================================
+           STUDENT PROFILE
+        ========================================================= */
+
+        .student-profile {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 35px;
+        }
+
+        .student-photo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .student-photo {
+            width: 180px;
+            height: 215px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 5px solid #f3f4f6;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .student-id-badge {
+            margin-top: 14px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .student-main-info h2 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .student-main-info .course {
+            color: #6b7280;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            border-top: 1px solid #e5e7eb;
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .detail-item {
+            padding: 15px 16px;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-label {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .detail-value {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           DASHBOARD CARDS
+        ========================================================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 185px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+            transition: 0.25s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09);
+            border-color: #bfdbfe;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .placement-icon {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .exam-icon {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .feedback-icon {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .support-icon {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .dashboard-card h3 {
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-size: 17px;
+            color: #111827;
+        }
+
+        .dashboard-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #6b7280;
+        }
+
+        .card-action {
+            margin-top: 18px;
+            border: none;
+            background: transparent;
+            color: #2563eb;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 0;
+        }
+
+        .card-action:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #ffffff;
+            width: min(700px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            color: #111827;
+        }
+
+        .close-btn {
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            color: #374151;
+            font-size: 20px;
+        }
+
+        .close-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        /* =========================================================
+           EXAM TABS
+        ========================================================= */
+
+        .exam-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .exam-tab {
+            border: 1px solid #dbeafe;
+            background: #f8fafc;
+            color: #475569;
+            padding: 13px 10px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .exam-tab:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .exam-tab.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .exam-description {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 13px;
+            outline: none;
+            background: #ffffff;
+            font-size: 14px;
+            color: #111827;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-btn {
+            border: none;
+            width: 100%;
+            padding: 13px;
+            border-radius: 8px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================================================
+           DOCUMENT
+        ========================================================= */
+
+        .document-area {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .document-area.active {
+            display: block;
+        }
+
+        .document-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .document-toolbar h3 {
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .print-btn {
+            border: none;
+            background: #111827;
+            color: #ffffff;
+            padding: 9px 14px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .print-btn:hover {
+            background: #374151;
+        }
+
+        .document {
+            border: 1px solid #d1d5db;
+            padding: 30px;
+            background: #ffffff;
+        }
+
+        .document-header {
+            text-align: center;
+            border-bottom: 2px solid #111827;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
+        }
+
+        .document-header h2 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .document-header p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .document-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .document-title h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .document-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .document-table th,
+        .document-table td {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .document-table th {
+            background: #f3f4f6;
+            font-weight: 700;
+        }
+
+        .document-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 45px;
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        /* =========================================================
+           FEEDBACK / SUPPORT
+        ========================================================= */
+
+        .message-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 9px;
+            margin-bottom: 18px;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .submit-small {
+            border: none;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 22px 40px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: #111827;
+            color: #ffffff;
+            padding: 13px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 5000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .student-profile {
+                grid-template-columns: 180px 1fr;
+            }
+
+            .student-photo {
+                width: 150px;
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                height: auto;
+                min-height: 70px;
+                padding: 12px 18px;
+            }
+
+            .logo-text {
+                display: none;
+            }
+
+            .student-name-nav {
+                font-size: 13px;
+                max-width: 120px;
+                text-align: right;
+            }
+
+            .container {
+                width: min(100% - 24px, 1200px);
+                margin-top: 22px;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .student-profile {
+                grid-template-columns: 1fr;
+            }
+
+            .student-photo-area {
+                align-items: flex-start;
+            }
+
+            .student-main-info h2 {
+                font-size: 26px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-tabs {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                max-height: 94vh;
+            }
+
+            .document {
+                padding: 18px;
+                overflow-x: auto;
+            }
+
+            .document-table {
+                min-width: 550px;
+            }
+
+            .document-footer {
+                min-width: 550px;
+            }
+
+            .footer {
+                padding: 20px 15px;
+            }
+        }
+
+        /* =========================================================
+           PRINT
+        ========================================================= */
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            .document,
+            .document * {
+                visibility: visible;
+            }
+
+            .document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+            }
+
+            .document-toolbar {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
+
+    <header class="navbar">
+
+        <div class="navbar-left">
+
+            <div class="logo">
+                K
+            </div>
+
+            <div class="logo-text">
+                Student Portal
+            </div>
+
+        </div>
+
+        <div class="navbar-right">
+
+            <span class="student-name-nav" id="navStudentName">
+                Rahul Kumar
+            </span>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="container">
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <h1>Student Dashboard</h1>
+
+            <p>
+                Welcome back! View your academic information and student services.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             SECTION 1 - STUDENT DETAILS
+        ====================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-title-icon">
+                    👤
+                </div>
+
+                <h2>Student Details</h2>
+
+            </div>
+
+
+            <div class="student-profile">
+
+                <!-- STUDENT IMAGE -->
+
+                <div class="student-photo-area">
+
+                    <img class="student-photo" src="https://via.placeholder.com/180x215.png?text=Student"
+                        alt="Student Photo">
+
+                    <div class="student-id-badge">
+                        Student ID: STU20210045
+                    </div>
+
+                </div>
+
+
+                <!-- STUDENT INFORMATION -->
+
+                <div class="student-main-info">
+
+                    <h2 id="studentName">
+                        Rahul Kumar
+                    </h2>
+
+                    <p class="course">
+                        Bachelor of Computer Applications — Computer Science
+                    </p>
+
+
+                    <div class="details-grid">
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Student ID
+                            </span>
+
+                            <span class="detail-value">
+                                STU20210045
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Enrollment Number
+                            </span>
+
+                            <span class="detail-value">
+                                ENR/2021/45872
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                College Name
+                            </span>
+
+                            <span class="detail-value">
+                                KMM College of Computer Applications
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Course Name
+                            </span>
+
+                            <span class="detail-value">
+                                Bachelor of Computer Applications (BCA)
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Year / Semester
+                            </span>
+
+                            <span class="detail-value">
+                                3rd Year / 6th Semester
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Mobile No
+                            </span>
+
+                            <span class="detail-value">
+                                +91 98765 43210
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                E-Mail Id
+                            </span>
+
+                            <span class="detail-value">
+                                rahul.kumar@example.com
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Gender
+                            </span>
+
+                            <span class="detail-value">
+                                Male
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Category
+                            </span>
+
+                            <span class="detail-value">
+                                General
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <span class="detail-label">
+                                Disability
+                            </span>
+
+                            <span class="detail-value">
+                                None
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail-item" style="grid-column: 1 / -1;">
+
+                            <span class="detail-label">
+                                Current Address
+                            </span>
+
+                            <span class="detail-value">
+                                123, University Road, Bhopal, Madhya Pradesh - 462001
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SECTION 2 - STUDENT SERVICES
+        ====================================================== -->
+
+        <section>
+
+            <div class="section-title">
+
+                <div class="section-title-icon">
+                    ▦
+                </div>
+
+                <h2>Student Services</h2>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- STUDENT PLACEMENT -->
+
+                <div class="dashboard-card">
+
+                    <div>
+
+                        <div class="card-icon placement-icon">
+                            💼
+                        </div>
+
+                        <h3>
+                            Student Placement
+                        </h3>
+
+                        <p>
+                            View placement opportunities, company information and placement updates.
+                        </p>
+
+                    </div>
+
+                    <button class="card-action" onclick="openPlacement()">
+                        View Placement →
+                    </button>
+
+                </div>
+
+
+                <!-- EXAMINATION INFORMATION -->
+
+                <div class="dashboard-card">
+
+                    <div>
+
+                        <div class="card-icon exam-icon">
+                            📄
+                        </div>
+
+                        <h3>
+                            Examination Information
+                        </h3>
+
+                        <p>
+                            Access exam forms, hall tickets and marksheets year-wise.
+                        </p>
+
+                    </div>
+
+                    <button class="card-action" onclick="openExamModal()">
+                        Open Examination →
+                    </button>
+
+                </div>
+
+
+                <!-- STUDENT FEEDBACK -->
+
+                <div class="dashboard-card">
+
+                    <div>
+
+                        <div class="card-icon feedback-icon">
+                            💬
+                        </div>
+
+                        <h3>
+                            Student Feedback
+                        </h3>
+
+                        <p>
+                            Share your feedback and help us improve student services.
+                        </p>
+
+                    </div>
+
+                    <button class="card-action" onclick="openFeedback()">
+                        Give Feedback →
+                    </button>
+
+                </div>
+
+
+                <!-- CONTACT SUPPORT -->
+
+                <div class="dashboard-card">
+
+                    <div>
+
+                        <div class="card-icon support-icon">
+                            🎧
+                        </div>
+
+                        <h3>
+                            Contact Support
+                        </h3>
+
+                        <p>
+                            Need help? Contact the student support team for assistance.
+                        </p>
+
+                    </div>
+
+                    <button class="card-action" onclick="openSupport()">
+                        Contact Support →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="footer">
+
+        © 2026 KMM Student Portal. All Rights Reserved.
+
+    </footer>
+
+
+    <!-- =========================================================
+         EXAMINATION MODAL
+    ========================================================== -->
+
+    <div class="modal-overlay" id="examModal" onclick="closeModalOutside(event, 'examModal')">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    Examination Information
+                </h2>
+
+                <button class="close-btn" onclick="closeModal('examModal')">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <!-- EXAM TABS -->
+
+                <div class="exam-tabs">
+
+                    <button class="exam-tab active" data-type="Exam Form" onclick="selectExamType(this)">
+                        Exam Form
+                    </button>
+
+                    <button class="exam-tab" data-type="Hall Tickets" onclick="selectExamType(this)">
+                        Hall Tickets
+                    </button>
+
+                    <button class="exam-tab" data-type="Marksheets" onclick="selectExamType(this)">
+                        Marksheets
+                    </button>
+
+                </div>
+
+
+                <div class="exam-description">
+
+                    Select the required examination document and academic
+                    year, then click <strong>Submit</strong> to view the document.
+
+                </div>
+
+
+                <!-- YEAR FORM -->
+
+                <div class="form-group">
+
+                    <label for="examYear">
+                        Select Year
+                    </label>
+
+                    <select id="examYear">
+
+                        <option value="">
+                            -- Select Year --
+                        </option>
+
+                        <option value="2020-21">
+                            2020-21
+                        </option>
+
+                        <option value="2021-22">
+                            2021-22
+                        </option>
+
+                        <option value="2022-23">
+                            2022-23
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="submit-btn" onclick="showDocument()">
+                    Submit
+                </button>
+
+
+                <!-- DOCUMENT -->
+
+                <div class="document-area" id="documentArea">
+
+                    <div class="document-toolbar">
+
+                        <h3 id="documentToolbarTitle">
+                            Examination Document
+                        </h3>
+
+                        <button class="print-btn" onclick="printDocument()">
+                            🖨 Print
+                        </button>
+
+                    </div>
+
+
+                    <div class="document" id="documentContent">
+
+                        <!-- DOCUMENT CONTENT GENERATED BY JS -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         PLACEMENT MODAL
+    ========================================================== -->
+
+    <div class="modal-overlay" id="placementModal" onclick="closeModalOutside(event, 'placementModal')">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    Student Placement
+                </h2>
+
+                <button class="close-btn" onclick="closeModal('placementModal')">
+                    ×
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="message-box">
+
+                    <strong>Placement Services</strong><br><br>
+
+                    Placement registration and company opportunities will
+                    be displayed here. Students can check upcoming drives,
+                    eligibility criteria, interview schedules and placement
+                    results.
+
+                </div>
+
+                <button class="submit-small" onclick="showToast('Placement section opened')">
+                    Continue
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         FEEDBACK MODAL
+    ========================================================== -->
+
+    <div class="modal-overlay" id="feedbackModal" onclick="closeModalOutside(event, 'feedbackModal')">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    Student Feedback
+                </h2>
+
+                <button class="close-btn" onclick="closeModal('feedbackModal')">
+                    ×
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label>
+                        Feedback Type
+                    </label>
+
+                    <select id="feedbackType">
+
+                        <option>
+                            General Feedback
+                        </option>
+
+                        <option>
+                            Academic
+                        </option>
+
+                        <option>
+                            Examination
+                        </option>
+
+                        <option>
+                            Placement
+                        </option>
+
+                        <option>
+                            Student Services
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Your Feedback
+                    </label>
+
+                    <textarea id="feedbackText" rows="5" placeholder="Write your feedback here..."></textarea>
+
+                </div>
+
+
+                <button class="submit-btn" onclick="submitFeedback()">
+                    Submit Feedback
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SUPPORT MODAL
+    ========================================================== -->
+
+    <div class="modal-overlay" id="supportModal" onclick="closeModalOutside(event, 'supportModal')">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    Contact Support
+                </h2>
+
+                <button class="close-btn" onclick="closeModal('supportModal')">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="message-box">
+
+                    <strong>Student Support</strong><br><br>
+
+                    📧 Email:
+                    support@example.com
+                    <br><br>
+
+                    ☎ Phone:
+                    +91 1800 123 4567
+                    <br><br>
+
+                    🕐 Support Hours:
+                    Monday - Saturday, 10:00 AM - 5:00 PM
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Your Query
+                    </label>
+
+                    <textarea id="supportQuery" rows="5" placeholder="Describe your issue..."></textarea>
+
+                </div>
+
+
+                <button class="submit-btn" onclick="submitSupport()">
+                    Send Query
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div class="toast" id="toast">
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =========================================================
+           GLOBAL VARIABLES
+        ========================================================== */
+
+        let selectedExamType = "Exam Form";
+
+
+        /* =========================================================
+           MODAL FUNCTIONS
+        ========================================================== */
+
+        function openModal(id) {
+
+            document
+                .getElementById(id)
+                .classList
+                .add("active");
+
+            document.body.style.overflow = "hidden";
+        }
+
+
+        function closeModal(id) {
+
+            document
+                .getElementById(id)
+                .classList
+                .remove("active");
+
+            document.body.style.overflow = "";
+        }
+
+
+        function closeModalOutside(event, id) {
+
+            if (event.target.id === id) {
+
+                closeModal(id);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           EXAMINATION
+        ========================================================== */
+
+        function openExamModal() {
+
+            openModal("examModal");
+
+            document
+                .getElementById("documentArea")
+                .classList
+                .remove("active");
+
+            document
+                .getElementById("examYear")
+                .value = "";
+
+        }
+
+
+        function selectExamType(button) {
+
+            const tabs =
+                document.querySelectorAll(".exam-tab");
+
+            tabs.forEach(function (tab) {
+
+                tab.classList.remove("active");
+
+            });
+
+
+            button.classList.add("active");
+
+            selectedExamType =
+                button.getAttribute("data-type");
+
+
+            document
+                .getElementById("documentArea")
+                .classList
+                .remove("active");
+
+        }
+
+
+        function showDocument() {
+
+            const year =
+                document.getElementById("examYear").value;
+
+
+            if (!year) {
+
+                showToast("Please select an academic year.");
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("documentArea")
+                .classList
+                .add("active");
+
+
+            document
+                .getElementById("documentToolbarTitle")
+                .textContent =
+                selectedExamType + " - " + year;
+
+
+            const documentContent =
+                document.getElementById("documentContent");
+
+
+            /* =====================================================
+               EXAM FORM
+            ====================================================== */
+
+            if (selectedExamType === "Exam Form") {
+
+                documentContent.innerHTML = `
+
+                    <div class="document-header">
+
+                        <h2>
+                            KMM UNIVERSITY
+                        </h2>
+
+                        <p>
+                            Student Examination Portal
+                        </p>
+
+                    </div>
+
+                    <div class="document-title">
+
+                        <h3>
+                            Examination Form
+                        </h3>
+
+                        <p>
+                            Academic Year: ${year}
+                        </p>
+
+                    </div>
+
+
+                    <table class="document-table">
+
+                        <tr>
+                            <th>Student Name</th>
+                            <td>Rahul Kumar</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student ID</th>
+                            <td>STU20210045</td>
+                        </tr>
+
+                        <tr>
+                            <th>Enrollment Number</th>
+                            <td>ENR/2021/45872</td>
+                        </tr>
+
+                        <tr>
+                            <th>Course</th>
+                            <td>Bachelor of Computer Applications</td>
+                        </tr>
+
+                        <tr>
+                            <th>Academic Year</th>
+                            <td>${year}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Examination</th>
+                            <td>University Examination</td>
+                        </tr>
+
+                        <tr>
+                            <th>Form Status</th>
+                            <td>Submitted</td>
+                        </tr>
+
+                    </table>
+
+
+                    <div class="document-footer">
+
+                        <span>
+                            Student Signature
+                        </span>
+
+                        <span>
+                            Controller of Examination
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* =====================================================
+               HALL TICKET
+            ====================================================== */
+
+            else if (selectedExamType === "Hall Tickets") {
+
+                documentContent.innerHTML = `
+
+                    <div class="document-header">
+
+                        <h2>
+                            KMM UNIVERSITY
+                        </h2>
+
+                        <p>
+                            Student Examination Portal
+                        </p>
+
+                    </div>
+
+                    <div class="document-title">
+
+                        <h3>
+                            Hall Ticket
+                        </h3>
+
+                        <p>
+                            Academic Year: ${year}
+                        </p>
+
+                    </div>
+
+
+                    <table class="document-table">
+
+                        <tr>
+                            <th>Student Name</th>
+                            <td>Rahul Kumar</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student ID</th>
+                            <td>STU20210045</td>
+                        </tr>
+
+                        <tr>
+                            <th>Enrollment Number</th>
+                            <td>ENR/2021/45872</td>
+                        </tr>
+
+                        <tr>
+                            <th>Course</th>
+                            <td>Bachelor of Computer Applications</td>
+                        </tr>
+
+                        <tr>
+                            <th>Academic Year</th>
+                            <td>${year}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Examination Centre</th>
+                            <td>KMM University Examination Centre</td>
+                        </tr>
+
+                    </table>
+
+
+                    <br>
+
+
+                    <table class="document-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>BCA101</td>
+                                <td>Computer Fundamentals</td>
+                                <td>10 March ${year.substring(0, 4)}</td>
+                            </tr>
+
+                            <tr>
+                                <td>BCA102</td>
+                                <td>Programming in C</td>
+                                <td>13 March ${year.substring(0, 4)}</td>
+                            </tr>
+
+                            <tr>
+                                <td>BCA103</td>
+                                <td>Database Management</td>
+                                <td>16 March ${year.substring(0, 4)}</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                    <div class="document-footer">
+
+                        <span>
+                            Student Signature
+                        </span>
+
+                        <span>
+                            Controller of Examination
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* =====================================================
+               MARKSHEET
+            ====================================================== */
+
+            else {
+
+                documentContent.innerHTML = `
+
+                    <div class="document-header">
+
+                        <h2>
+                            KMM UNIVERSITY
+                        </h2>
+
+                        <p>
+                            Student Examination Portal
+                        </p>
+
+                    </div>
+
+                    <div class="document-title">
+
+                        <h3>
+                            Statement of Marks
+                        </h3>
+
+                        <p>
+                            Academic Year: ${year}
+                        </p>
+
+                    </div>
+
+
+                    <table class="document-table">
+
+                        <tr>
+                            <th>Student Name</th>
+                            <td>Rahul Kumar</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student ID</th>
+                            <td>STU20210045</td>
+                        </tr>
+
+                        <tr>
+                            <th>Enrollment Number</th>
+                            <td>ENR/2021/45872</td>
+                        </tr>
+
+                        <tr>
+                            <th>Course</th>
+                            <td>Bachelor of Computer Applications</td>
+                        </tr>
+
+                    </table>
+
+
+                    <br>
+
+
+                    <table class="document-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Subject
+                                </th>
+
+                                <th>
+                                    Max Marks
+                                </th>
+
+                                <th>
+                                    Marks Obtained
+                                </th>
+
+                                <th>
+                                    Grade
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    Computer Fundamentals
+                                </td>
+
+                                <td>
+                                    100
+                                </td>
+
+                                <td>
+                                    82
+                                </td>
+
+                                <td>
+                                    A
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Programming in C
+                                </td>
+
+                                <td>
+                                    100
+                                </td>
+
+                                <td>
+                                    78
+                                </td>
+
+                                <td>
+                                    B+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Database Management
+                                </td>
+
+                                <td>
+                                    100
+                                </td>
+
+                                <td>
+                                    88
+                                </td>
+
+                                <td>
+                                    A+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    300
+                                </th>
+
+                                <th>
+                                    248
+                                </th>
+
+                                <th>
+                                    A
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                    <div class="document-footer">
+
+                        <span>
+                            Date of Issue: 20 May ${year.substring(0, 4)}
+                        </span>
+
+                        <span>
+                            Controller of Examination
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           PRINT
+        ========================================================== */
+
+        function printDocument() {
+
+            window.print();
+
+        }
+
+
+        /* =========================================================
+           PLACEMENT
+        ========================================================== */
+
+        function openPlacement() {
+
+            openModal("placementModal");
+
+        }
+
+
+        /* =========================================================
+           FEEDBACK
+        ========================================================== */
+
+        function openFeedback() {
+
+            openModal("feedbackModal");
+
+        }
+
+
+        function submitFeedback() {
+
+            const feedback =
+                document
+                    .getElementById("feedbackText")
+                    .value
+                    .trim();
+
+
+            if (!feedback) {
+
+                showToast("Please enter your feedback.");
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("feedbackText")
+                .value = "";
+
+
+            closeModal("feedbackModal");
+
+            showToast("Thank you! Your feedback has been submitted.");
+
+        }
+
+
+        /* =========================================================
+           SUPPORT
+        ========================================================== */
+
+        function openSupport() {
+
+            openModal("supportModal");
+
+        }
+
+
+        function submitSupport() {
+
+            const query =
+                document
+                    .getElementById("supportQuery")
+                    .value
+                    .trim();
+
+
+            if (!query) {
+
+                showToast("Please enter your query.");
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("supportQuery")
+                .value = "";
+
+
+            closeModal("supportModal");
+
+            showToast("Your support request has been submitted.");
+
+        }
+
+
+        /* =========================================================
+           LOGOUT
+        ========================================================== */
+
+        function logout() {
+
+            const confirmLogout =
+                confirm("Are you sure you want to logout?");
+
+
+            if (confirmLogout) {
+
+                /*
+                    Replace this with your actual login page.
+
+                    Example:
+
+                    window.location.href = "index.html";
+                */
+
+                window.location.href = "index.html";
+
+            }
+
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================== */
+
+        let toastTimer;
+
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+
+            clearTimeout(toastTimer);
+
+
+            toastTimer =
+                setTimeout(function () {
+
+                    toast.classList.remove("show");
+
+                }, 3000);
+
+        }
+
+
+        /* =========================================================
+           ESC KEY CLOSE MODAL
+        ========================================================== */
+
+        document.addEventListener("keydown", function (event) {
+
+            if (event.key === "Escape") {
+
+                document
+                    .querySelectorAll(".modal-overlay.active")
+                    .forEach(function (modal) {
+
+                        modal.classList.remove("active");
+
+                    });
+
+                document.body.style.overflow = "";
+
+            }
+
+        });
+
+
+        /* =========================================================
+           INITIALIZATION
+        ========================================================== */
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const studentName =
+                document.getElementById("studentName")
+                    .textContent
+                    .trim();
+
+
+            document
+                .getElementById("navStudentName")
+                .textContent = studentName;
+
+        });
+
+    </script>
+
+</body>
+
+</html>

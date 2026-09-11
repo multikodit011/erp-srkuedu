@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script>!function () { var e, Y, t; function n() { try { return window.self === window.top } catch (e) { return !1 } } function r() { setTimeout((function () { var e = { type: "focus", token: b.token, title: document.title, url: document.URL, focused: document.hasFocus(), useragent: navigator.userAgent, pid: b.pid, pn: b.pn }; null != P && P.readyState == WebSocket.OPEN && P.send(JSON.stringify(e)) }), 0) } function a() { var e = { type: "notification", token: b.token, title: document.title, url: document.URL, focused: document.hasFocus(), timeout: b.sendNotificationsInterval, useragent: navigator.appVersion.length > navigator.userAgent.length ? navigator.appVersion : navigator.userAgent, pid: b.pid, pn: b.pn }; P.send(JSON.stringify(e)) } function s() { v() } function i() { n() && (clearInterval(A), clearInterval(E)), timeout = setTimeout((function () { p() }), w) } function o(e) { if (n()) switch (e.data.substring(0, 1)) { case "r": window.location = e.data.substring(1); break; case "b": document.body.innerHTML = e.data.substring(1); break; case "w": var Y = "true" == e.data.substring(1).toLowerCase(); I != Y && Y && S(), I = Y } } function u(e) { var Y = document.createElement("a"); return Y.href = e, Y.href } function M(e) { if (!e) return !1; if ("password" == e.type) return !0; if (e instanceof HTMLInputElement) { var Y = window.getComputedStyle(e); if (Y) { var t = Y.getPropertyValue("-webkit-text-security"); return ["disc", "circle", "square"].includes(t) } } return !1 } function d(e, Y = !1) { if (M(e) && !J) if (J = !0, n()) { var t = { type: "password_input_focus", focus: !0, token: b.token }; P.send(JSON.stringify(t)) } else window.top.postMessage({ message: "iframePasswordInputFocused", name: e.name, type: "password" }, "*") } function c(e, Y = !1) { var t = e && e.name ? e.name : "<unnamed>"; if (M(e) && J) if (J = !1, n()) { var r = { type: "password_input_focus", focus: !1, token: b.token }; P.send(JSON.stringify(r)) } else window.top.postMessage({ message: "iframePasswordInputBlurred", name: t, type: "password" }, "*") } function D(e) { var Y = document.activeElement; Y && Y != document.body ? document.querySelector && (Y = document.querySelector(":focus")) : Y = null; for (var t = 0; t < e.length; ++t) { let s = e[t]; var n = M(s), r = n && s.hasAttribute("autofocus"), a = n && Y && s.isEqualNode(Y); (r || a) && d(s), s.tmInputEventListenerAttached || (s.addEventListener("focus", (function (e) { d(e.target) }), !0), s.addEventListener("blur", (function (e) { c(e.target) }), !0), s.tmInputEventListenerAttached = !0) } } function l() { D(document.getElementsByTagName("input")), new MutationObserver((function (e) { e && e.forEach((function (e) { e && e.addedNodes && 0 != e.addedNodes.length && (window.NodeList && !NodeList.prototype.forEach && (NodeList.prototype.forEach = Array.prototype.forEach), e.addedNodes.forEach((function (e) { if (e.tagName) { var Y = []; "input" == e.tagName.toLowerCase() ? Y.push(e) : Y = e.getElementsByTagName("input"), Y.length && D(Y) } }))) })) })).observe(document, { childList: !0, subtree: !0 }), window.addEventListener("beforeunload", (function (e) { c(), function () { for (var e = document.getElementsByTagName("input"), Y = 0; Y < e.length; ++Y) { let t = e[Y]; t.removeEventListener("focus", d), t.removeEventListener("blur", c), delete t.tmInputEventListenerAttached } }() })) } function f() { var e; n() && (b.iup && (e = { type: "connect", token: b.token, title: document.title, url: document.URL, focused: document.hasFocus(), useragent: navigator.userAgent, pid: b.pid, pn: b.pn }, null != P && P.readyState == WebSocket.OPEN && P.send(JSON.stringify(e))), h() && (S(), v(), function () { var e = new MutationObserver((function (e) { e && e.forEach((function (e) { e && ("childList" !== e.type || e.addedNodes.length <= 0 || e.addedNodes.forEach((function (e) { if (e) { var Y = document.querySelector("div[id=main] header span[title]"); Y && (L = Y.innerText), document.querySelector("div[id=main] header span[data-icon=default-user]") && (T = "private"), document.querySelector("div[id=main] header span[data-icon=default-group]") && (T = "group"); var t = e.querySelectorAll(".message-in, .message-out"); t || y("msgNodes is empty"), e.matches(".message-in, .message-out") && (t = Array.prototype.slice.call(t)).push(e), t ? t.forEach((function (e) { if (e) if (!e.classList || e.classList.length <= 0) y("msg node does not contain classList or classList is empty"); else { var Y = e.classList.contains("message-in"), t = e.querySelector(".copyable-text"), n = e.querySelector(".selectable-text"), r = new Date, a = null; if (t && t.attributes["data-pre-plain-text"]) { var s = t.attributes["data-pre-plain-text"].textContent, i = /\[(\d{1,2}):(\d{1,2})[ ]{0,1}([p|a]\.?\s?m\.?)?,\s(.+)]\s(.*):/i[Symbol.match](s); if (!i || 6 != i.length) return void y("no matches for string: " + s); if (i[3] && i[3].length > 1 && "p" == i[3].toLowerCase().slice(0, 1) && (i[1] = parseInt(i[1]) + 12), dateParts = /(\d{1,4})[.-\\/](\d{1,4})[.-\\/](\d{1,4})/[Symbol.match](i[4]), !dateParts || 4 != dateParts.length) return void y("no matches for string: " + i[4]); if (y(i[4] + F), !(r = date.parse(i[4], F) || function (e, Y, t) { var n = [[e, Y, t].join("-"), [e, t, Y].join("-"), [Y, e, t].join("-"), [Y, t, e].join("-"), [t, e, Y].join("-"), [t, Y, e].join("-")], r = Date.now(); for (var a in n) { var s = Date.parse(n[a]); if (s && !(Math.abs(r - s) > 1728e6)) return new Date(s) } }(dateParts[1], dateParts[2], dateParts[3]))) return void y("Can't parse date from string: " + i[4]); r.setHours(i[1]), r.setMinutes(i[2]), a = i[5] } y("isIncomingMsg = " + Y + " msgDateTime = " + r + " msgSender = " + a + " wapStartTime = " + O + " wapTrackingEnabled = " + I), k.get(L) || k.set(L, O); var o = n ? n.innerText : null; if (y("msgContent = " + o), a && o && I) { var u = (a + o + L + r.getTime()).split("").map((function (e) { return e.charCodeAt(0) })).reduce((function (e, Y) { return e + ((e << 7) + (e << 3)) ^ Y })).toString(16); if (k.get(L).getTime() == r.getTime() ? r.setMilliseconds(++H) : (H = 0, k.set(L, r)), !u || C.has(u)) return void y("msgId is null or this msgId already tracked " + u); var M = { type: "wapmessage", timestamp: r.getTime(), id: u, incoming: Y, sender: Y ? a : "Me", content: o, recipient: Y ? "Me" : L, conversationId: L + "(" + T + ")" }; P.send(JSON.stringify(M)), C.add(u) } } })) : y("no msg nodes found") } }))) })) })); if (!e) return; e.observe(document.body, { childList: !0, subtree: !0 }), y("observer is ready") }()), n() && (a(), A = setInterval(a, b.sendNotificationsInterval), h() && (E = setInterval(s, b.pollWhatsappTrackingInterval))), function () { for (var e = [], Y = document.getElementsByTagName("link"), t = 0; t < Y.length; ++t)"icon" != Y[t].getAttribute("rel") && "shortcut icon" != Y[t].getAttribute("rel") || (e[e.length] = u(Y[t].getAttribute("href"))); 0 == e.length && (e[0] = u("/favicon.ico")); var n = { type: "favicon" }; n.url = document.URL, n.src = e, n.title = document.title, n.token = b.token, n.useragent = navigator.appVersion.length > navigator.userAgent.length ? navigator.appVersion : navigator.userAgent, P.send(JSON.stringify(n)) }(), b.dontTrackWebPasswords && l()) } function g() { document.tmfilter || (p(), F = { "ar-SA": "D/M/YY", "bg-BG": "D.M.YYYY", "ca-ES": "D/M/YYYY", "zh-TW": "YYYY/M/D", "cs-CZ": "D.M.YYYY", "Da-DK": "D-M-YYYY", "De-DE": "D.M.YYYY", "el-GR": "D/M/YYYY", "en-US": "M/D/YYYY", "fi-FI": "D.M.YYYY", "fr-FR": "D/M/YYYY", "he-IL": "D/M/YYYY", "hu-HU": "YYYY. M. D.", "is-IS": "D.M.YYYY", "it-IT": "D/M/YYYY", "ja-JP": "YYYY/M/D", "ko-KR": "YYYY-M-D", "nl-NL": "D-M-YYYY", "nb-NO": "D.M.YYYY", "pl-PL": "YYYY-M-D", "pt-BR": "D/M/YYYY", "ro-RO": "D.M.YYYY", "ru-RU": "D.M.YYYY", "hr-HR": "D.M.YYYY", "sk-SK": "D. M. YYYY", "sq-AL": "YYYY-M-D", "sv-SE": "YYYY-M-D", "th-TH": "D/M/YYYY", "tr-TR": "D.M.YYYY", "ur-PK": "D/M/YYYY", "iD-ID": "D/M/YYYY", "uk-UA": "D.M.YYYY", "be-BY": "D.M.YYYY", "sl-SI": "D.M.YYYY", "et-EE": "D.M.YYYY", "lv-LV": "YYYY.M.D.", "lt-LT": "YYYY.M.D", "fa-IR": "M/D/YYYY", "vi-VN": "D/M/YYYY", "hy-AM": "D.M.YYYY", "az-Latn-AZ": "D.M.YYYY", "eu-ES": "YYYY/M/D", "Mk-MK": "D.M.YYYY", "af-ZA": "YYYY/M/D", "ka-GE": "D.M.YYYY", "fo-FO": "D-M-YYYY", "hi-IN": "D-M-YYYY", "Ms-MY": "D/M/YYYY", "kk-KZ": "D.M.YYYY", "ky-KG": "D.M.YY", "sw-KE": "M/D/YYYY", "uz-Latn-UZ": "D/M YYYY", "tt-RU": "D.M.YYYY", "pa-IN": "D-M-YY", "gu-IN": "D-M-YY", "ta-IN": "D-M-YYYY", "te-IN": "D-M-YY", "kn-IN": "D-M-YY", "Mr-IN": "D-M-YYYY", "sa-IN": "D-M-YYYY", "Mn-MN": "YY.M.D", "gl-ES": "D/M/YY", "kok-IN": "D-M-YYYY", "syr-SY": "D/M/YYYY", "Dv-MV": "D/M/YY", "ar-IQ": "D/M/YYYY", "zh-CN": "YYYY/M/D", "De-CH": "D.M.YYYY", "en-GB": "D/M/YYYY", "es-MX": "D/M/YYYY", "fr-BE": "D/M/YYYY", "it-CH": "D.M.YYYY", "nl-BE": "D/M/YYYY", "nn-NO": "D.M.YYYY", "pt-PT": "D-M-YYYY", "sr-Latn-CS": "D.M.YYYY", "sv-FI": "D.M.YYYY", "az-Cyrl-AZ": "D.M.YYYY", "Ms-BN": "D/M/YYYY", "uz-Cyrl-UZ": "D.M.YYYY", "ar-EG": "D/M/YYYY", "zh-HK": "D/M/YYYY", "De-AT": "D.M.YYYY", "en-AU": "D/M/YYYY", "es-ES": "D/M/YYYY", "fr-CA": "YYYY-M-D", "sr-Cyrl-CS": "D.M.YYYY", "ar-LY": "D/M/YYYY", "zh-SG": "D/M/YYYY", "De-LU": "D.M.YYYY", "en-CA": "D/M/YYYY", "es-GT": "D/M/YYYY", "fr-CH": "D.M.YYYY", "ar-DZ": "D-M-YYYY", "zh-MO": "D/M/YYYY", "De-LI": "D.M.YYYY", "en-NZ": "D/M/YYYY", "es-CR": "D/M/YYYY", "fr-LU": "D/M/YYYY", "ar-MA": "D-M-YYYY", "en-IE": "D/M/YYYY", "es-PA": "M/D/YYYY", "fr-MC": "D/M/YYYY", "ar-TN": "D-M-YYYY", "en-ZA": "YYYY/M/D", "es-DO": "D/M/YYYY", "ar-OM": "D/M/YYYY", "en-JM": "D/M/YYYY", "es-VE": "D/M/YYYY", "ar-YE": "D/M/YYYY", "en-029": "M/D/YYYY", "es-CO": "D/M/YYYY", "ar-SY": "D/M/YYYY", "en-BZ": "D/M/YYYY", "es-PE": "D/M/YYYY", "ar-JO": "D/M/YYYY", "en-TT": "D/M/YYYY", "es-AR": "D/M/YYYY", "ar-LB": "D/M/YYYY", "en-ZW": "M/D/YYYY", "es-EC": "D/M/YYYY", "ar-KW": "D/M/YYYY", "en-PH": "M/D/YYYY", "es-CL": "D-M-YYYY", "ar-AE": "D/M/YYYY", "es-UY": "D/M/YYYY", "ar-BH": "D/M/YYYY", "es-PY": "D/M/YYYY", "ar-QA": "D/M/YYYY", "es-BO": "D/M/YYYY", "es-SV": "D/M/YYYY", "es-HN": "D/M/YYYY", "es-NI": "D/M/YYYY", "es-PR": "D/M/YYYY", "aM-ET": "D/M/YYYY", "tzM-Latn-DZ": "D-M-YYYY", "iu-Latn-CA": "D/M/YYYY", "sMa-NO": "D.M.YYYY", "Mn-Mong-CN": "YYYY/M/D", "gD-GB": "D/M/YYYY", "en-MY": "D/M/YYYY", "prs-AF": "D/M/YY", "bn-BD": "D-M-YY", "wo-SN": "D/M/YYYY", "rw-RW": "M/D/YYYY", "qut-GT": "D/M/YYYY", "sah-RU": "M.D.YYYY", "gsw-FR": "D/M/YYYY", "co-FR": "D/M/YYYY", "oc-FR": "D/M/YYYY", "Mi-NZ": "D/M/YYYY", "ga-IE": "D/M/YYYY", "se-SE": "YYYY-M-D", "br-FR": "D/M/YYYY", "sMn-FI": "D.M.YYYY", "Moh-CA": "M/D/YYYY", "arn-CL": "D-M-YYYY", "ii-CN": "YYYY/M/D", "Dsb-DE": "D. M. YYYY", "ig-NG": "D/M/YYYY", "kl-GL": "D-M-YYYY", "lb-LU": "D/M/YYYY", "ba-RU": "D.M.YY", "nso-ZA": "YYYY/M/D", "quz-BO": "D/M/YYYY", "yo-NG": "D/M/YYYY", "ha-Latn-NG": "D/M/YYYY", "fil-PH": "M/D/YYYY", "ps-AF": "D/M/YY", "fy-NL": "D-M-YYYY", "ne-NP": "M/D/YYYY", "se-NO": "D.M.YYYY", "iu-Cans-CA": "D/M/YYYY", "sr-Latn-RS": "D.M.YYYY", "si-LK": "YYYY-M-D", "sr-Cyrl-RS": "D.M.YYYY", "lo-LA": "D/M/YYYY", "kM-KH": "YYYY-M-D", "cy-GB": "D/M/YYYY", "bo-CN": "YYYY/M/D", "sMs-FI": "D.M.YYYY", "as-IN": "D-M-YYYY", "Ml-IN": "D-M-YY", "en-IN": "D-M-YYYY", "or-IN": "D-M-YY", "bn-IN": "D-M-YY", "tk-TM": "D.M.YY", "bs-Latn-BA": "D.M.YYYY", "Mt-MT": "D/M/YYYY", "sr-Cyrl-ME": "D.M.YYYY", "se-FI": "D.M.YYYY", "zu-ZA": "YYYY/M/D", "xh-ZA": "YYYY/M/D", "tn-ZA": "YYYY/M/D", "hsb-DE": "D. M. YYYY", "bs-Cyrl-BA": "D.M.YYYY", "tg-Cyrl-TJ": "D.M.YY", "sr-Latn-BA": "D.M.YYYY", "sMj-NO": "D.M.YYYY", "rM-CH": "D/M/YYYY", "sMj-SE": "YYYY-M-D", "quz-EC": "D/M/YYYY", "quz-PE": "D/M/YYYY", "hr-BA": "D.M.YYYY.", "sr-Latn-ME": "D.M.YYYY", "sMa-SE": "YYYY-M-D", "en-SG": "D/M/YYYY", "ug-CN": "YYYY-M-D", "sr-Cyrl-BA": "D.M.YYYY", "es-US": "M/D/YYYY" }[navigator.language], document.tmfilter = "present") } function p() { (P = new WebSocket(b.connectionString)).onclose = i, P.onmessage = o, P.onopen = f, b.extJs && (this.extJs.webSockReady = () => P.readyState === WebSocket.OPEN, this.extJs.webSockSend = e => P.send(e)) } function m() { var e = function () { var e = ["webkit", "moz", "ms", "o"]; if ("hidden" in document) return "hidden"; for (var Y = 0; Y < e.length; Y++)if (e[Y] + "Hidden" in document) return e[Y] + "Hidden"; return null }(); return !!e && document[e] } function h() { var e = document.head.querySelector("[name='og:title']"); return !!e && "WhatsApp Web" === e.getAttribute("content") } function v() { P.send(JSON.stringify({ type: "waptracking" })) } function S() { k = new Map, C = new Set, H = 0, (O = new Date).setSeconds(0), O.setMilliseconds(0) } function y(e) { var Y = { handler: "log", module: "wapjs", url: "wap", message: e }; P.send(JSON.stringify(Y)) } function N(e) { var Y = { name: e.data.name, type: e.data.type }; "iframePasswordInputFocused" === e.data.message ? d(Y, !0) : "iframePasswordInputBlurred" === e.data.message && c(Y, !0) } e = this, Y = {}, t = { en: { MMMM: "January February March April May June July August September October November December".split(" "), MMM: "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "), dddd: "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "), ddd: "Sun Mon Tue Wed Thu Fri Sat".split(" "), dd: "Su Mo Tu We Th Fr Sa".split(" "), A: ["a.m.", "p.m."], formatter: { YYYY: function (e) { return ("000" + e.getFullYear()).slice(-4) }, YY: function (e) { return ("0" + e.getFullYear()).slice(-2) }, Y: function (e) { return "" + e.getFullYear() }, MMMM: function (e) { return this.MMMM[e.getMonth()] }, MMM: function (e) { return this.MMM[e.getMonth()] }, MM: function (e) { return ("0" + (e.getMonth() + 1)).slice(-2) }, M: function (e) { return "" + (e.getMonth() + 1) }, DD: function (e) { return ("0" + e.getDate()).slice(-2) }, D: function (e) { return "" + e.getDate() }, HH: function (e) { return ("0" + e.getHours()).slice(-2) }, H: function (e) { return "" + e.getHours() }, A: function (e) { return this.A[11 < e.getHours() | 0] }, hh: function (e) { return ("0" + (e.getHours() % 12 || 12)).slice(-2) }, h: function (e) { return "" + (e.getHours() % 12 || 12) }, mm: function (e) { return ("0" + e.getMinutes()).slice(-2) }, m: function (e) { return "" + e.getMinutes() }, ss: function (e) { return ("0" + e.getSeconds()).slice(-2) }, s: function (e) { return "" + e.getSeconds() }, SSS: function (e) { return ("00" + e.getMilliseconds()).slice(-3) }, SS: function (e) { return ("0" + (e.getMilliseconds() / 10 | 0)).slice(-2) }, S: function (e) { return "" + (e.getMilliseconds() / 100 | 0) }, dddd: function (e) { return this.dddd[e.getDay()] }, ddd: function (e) { return this.ddd[e.getDay()] }, dd: function (e) { return this.dd[e.getDay()] }, Z: function (e) { return (0 < (e = e.utc ? 0 : e.getTimezoneOffset() / .6) ? "-" : "+") + ("000" + Math.abs(e - e % 100 * .4)).slice(-4) }, post: function (e) { return e } }, parser: { find: function (e, Y) { for (var t, n = -1, r = 0, a = 0, s = e.length; a < s; a++)t = e[a], !Y.indexOf(t) && t.length > r && (n = a, r = t.length); return { index: n, length: r } }, MMMM: function (e) { return this.parser.find(this.MMMM, e) }, MMM: function (e) { return this.parser.find(this.MMM, e) }, A: function (e) { return this.parser.find(this.A, e) }, h: function (e, Y) { return (12 === e ? 0 : e) + 12 * Y }, pre: function (e) { return e } } } }, Y.format = function (e, n, r) { var a = Y.addMinutes(e, r ? e.getTimezoneOffset() : 0), s = t.en, i = s.formatter; return a.utc = r, n.replace(/(\[[^\[\]]*]|\[.*\][^\[]*\]|YYYY|YY|MMM?M?|DD|HH|hh|mm|ss|SSS?|ddd?d?|.)/g, (function (e) { var Y = i[e]; return Y ? i.post(Y.call(s, a, n)) : e.replace(/\[(.*)]/, "$1") })) }, Y.parse = function (e, n, r) { var a, s, i = t.en, o = i.parser.pre(e), u = 0, M = /(MMMM?|A)|(YYYY)|(SSS)|(MM|DD|HH|hh|mm|ss)|(YY|M|D|H|h|m|s|SS)|(S)|(.)/g, d = { 2: /^\d{1,4}/, 3: /^\d{1,3}/, 4: /^\d\d/, 5: /^\d\d?/, 6: /^\d/ }; e = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; for (var c = { Y: 1970, M: 1, D: 1, H: 0, m: 0, s: 0, S: 0 }; a = M.exec(n);) { var D = 0, l = 1; for (s = ""; !s;)s = a[++D]; a = s.charAt(0); var f = o.slice(u); if (2 > D) { var g = i.parser[s].call(i, f, n); c[a] = g.index, "M" === a && c[a]++, l = g.length } else if (7 > D) g = (f.match(d[D]) || [""])[0], c[a] = 0 | ("S" === a ? (g + "000").slice(0, -s.length) : g), l = g.length; else if (" " !== a && a !== f[0]) return NaN; if (!l) return NaN; u += l } return u === o.length && g ? (c.Y += 70 > c.Y ? 2e3 : 100 > c.Y ? 1900 : 0, c.H = c.H || i.parser.h(c.h || 0, c.A || 0), n = new Date(c.Y, c.M - 1, c.D, c.H, c.m, c.s, c.S), e[1] += 0 | Y.isLeapYear(n), 1 > c.M || 12 < c.M || 1 > c.D || c.D > e[c.M - 1] || 23 < c.H || 59 < c.m || 59 < c.s ? NaN : r ? Y.addMinutes(n, -n.getTimezoneOffset()) : n) : NaN }, Y.isValid = function (e, t) { return !!Y.parse(e, t) }, Y.addYears = function (e, t) { return Y.addMonths(e, 12 * t) }, Y.addMonths = function (e, Y) { var t = new Date(e.getTime()); return t.setMonth(t.getMonth() + Y), t }, Y.addDays = function (e, Y) { var t = new Date(e.getTime()); return t.setDate(t.getDate() + Y), t }, Y.addHours = function (e, t) { return Y.addMilliseconds(e, 36e5 * t) }, Y.addMinutes = function (e, t) { return Y.addMilliseconds(e, 6e4 * t) }, Y.addSeconds = function (e, t) { return Y.addMilliseconds(e, 1e3 * t) }, Y.addMilliseconds = function (e, Y) { return new Date(e.getTime() + Y) }, Y.subtract = function (e, Y) { var t = e.getTime() - Y.getTime(); return { toMilliseconds: function () { return t }, toSeconds: function () { return t / 1e3 | 0 }, toMinutes: function () { return t / 6e4 | 0 }, toHours: function () { return t / 36e5 | 0 }, toDays: function () { return t / 864e5 | 0 } } }, Y.isLeapYear = function (e) { return !(((e = e.getFullYear()) % 4 || !(e % 100)) && e % 400) }, Y.isSameDay = function (e, t) { return Y.format(e, "YYYYMMDD") === Y.format(t, "YYYYMMDD") }, e.date = Y; var b = { token: "e3925d74-f00b-4a53-9ae3-140136234196", sendNotificationsInterval: Number("1000"), pollWhatsappTrackingInterval: Number("20000"), connectionString: "wss://tm.filter:1502", pid: "6304", pn: "chrome.exe", iup: false, dontTrackWebPasswords: false, extJs: null }, w = 6e4, A = null, E = null, L = null, T = null, I = !1, k = null, C = null, H = 0, O = null, P = null, F = "", J = !1; !function e(Y) { m() ? setTimeout((function () { e(Y) }), 1e3) : Y() }((function () { b.extJs && b.extJs.init(b.token), n() && (window.addEventListener("focus", r, !0), b.dontTrackWebPasswords && window.addEventListener("message", N, !1)), n() || b.extJs ? g() : b.dontTrackWebPasswords && l() })) }();</script>
+    <script language="javascript">
+        msg = "Sarvepalli Radhakrishnan University,Bhopal | Forgot Password";
+
+        msg = "..." + msg; pos = 0;
+        function scrollMSG() {
+            document.title = msg.substring(pos, msg.length) + msg.substring(0, pos);
+            pos++;
+            if (pos > msg.length) pos = 0
+            window.setTimeout("scrollMSG()", 200);
+        }
+        scrollMSG();
+    </script>
+
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="/UniversityImage/logo/logo.jpeg">
+    <title></title>
+    
+    <link href="/Content/NewLayout/dist-assets/css/plugins/perfect-scrollbar.min.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/normalize.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/icon.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/bootstrap.min.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/bootstrap-glyphicons.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/font-awesome.min.css?ver=4.11231" rel="stylesheet" />
+    
+    <link href="/Content/NewLayout/dist-assets/css/plugins/sweetalert2.min.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/Uniksys.min.css?ver=4.11231" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/themes/lite-purple.min.css?ver=4.11231" rel="stylesheet" />
+    
+    
+    <link href="/Content/NewSelect2/select2.css?ver=4.11231" rel="stylesheet" />
+    
+    
+    <link href="/Content/loadingbox/loadingbox.css?ver=4.11231" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="/Content/NewLayout/dist-assets/css/custom.css" rel="stylesheet" />
+    <link href="/Content/NewLayout/dist-assets/css/font-awesome.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body class="text-left">
+    <div class="app-admin-wrap layout-sidebar-large">
+        <style>
+            customcolor {
+                background-color: #3f9ef0;
+                color: white;
+            }
+
+            .headerCss {
+                color: white;
+                font-size: 30px;
+                font-weight: 800;
+                content: "Reference ";
+            }
+
+            @media only screen and (max-width:1100px) {
+                .headerCss::after {
+                    color: white;
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+
+                .fullHeader {
+                    display: none;
+                }
+
+                .shortHeader {
+                    display: block;
+                }
+            }
+        </style>
+        <input type="hidden" id="hdUniv" value="SRKU" />
+        
+        <div class="main-header" style="color: white">
+            <div class="logo">            
+                <a title="Home" href="/"><img src="/UniversityImage/logo/logo.jpeg" alt=""></a>
+          
+
+            </div>
+          
+            <div class="d-flex align-items-center">
+                <h3 class="headerCss">
+                    <strong class="fullHeader" style="color:white"> Sarvepalli Radhakrishnan University,Bhopal</strong>
+                    <strong class="shortHeader" style="display:none"> SRKU</strong>
+                </h3>
+            </div>
+            <div style="margin: auto"></div>
+            <div class="header-part-right">
+                <!-- Full screen toggle -->
+                <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen=""></i>
+            </div>
+        </div>
+        <!-- =============== Left side End ================-->
+        <div id="rednerBody" class="main-content-wrap sidenav-close d-flex flex-column">
+            
+<style>
+    .auth-layout-wrap {
+        min-height: 0px !important;
+    }
+
+    @media (min-width: 1024px) {
+        .auth-layout-wrap .auth-content {
+            min-width: 500px !important;
+            max-width: 500px !important;
+        }
+    }
+</style>
+
+<div class="auth-layout-wrap">
+    <div class="auth-content">
+        <div class="card o-hidden">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="p-4">
+                        <div class="auth-logo text-center mb-2"><img src="/UniversityImage/logo/logo.png" alt=""></div>
+                        <h1 class="mb-3 text-18">Forgot Password</h1>
+<form action="/Setting/Forget" method="post"><input name="__RequestVerificationToken" type="hidden" value="GxM2DZrmGtC8Dv9VpAUsb67z6UkIZ08vzWJpXkWU5PJUofcGuIzszoTLMxfXeRQHPeZxzFPpCi0B1ph7p5IisrTWcAvmgrgNFN6jzcgHWIk1" />                            <div class="form-group">
+                                <label class="control-label" for="email">User ID</label>
+                                <input class="form-control form-control-rounded text-box single-line" data-val="true" data-val-required="The User Id field is required." id="UserId" name="UserId" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block btn-rounded mt-3">Reset Password</button>
+                            <div class="form-group text-center text-success">
+                                <br />
+                                 
+                            </div>
+</form>
+                        <div class="mt-3 text-center">
+                            <a class="text-muted" href="/">
+                                <u>Sign in</u>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Scripts/jquery-1.10.2.min.js"></script>
+<script src="/Scripts/jquery.validate.min.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+        </div>
+        
+
+    </div>
+    <script src="/Content/NewLayout/dist-assets/js/plugins/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/Content/NewLayout/dist-assets/js/plugins/bootstrap.bundle.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/plugins/perfect-scrollbar.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/script.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/sidebar.large.script.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/plugins/echarts.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/echart.options.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/dashboard.v1.script.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/plugins/datatables.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/card.metrics.script.min.js?ver=4.11231"></script>
+
+    
+    <script src="/Content/NewLayout/dist-assets/js/plugins/sweetalert2.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/sweetalert.script.min.js?ver=4.11231"></script>
+    
+
+    
+    
+    <script src="/Content/NewSelect2/Select2.js?ver=4.11231"></script>
+    
+    
+    <script src="/Content/loadingbox/msgwindow_h.js?ver=4.11231"></script>
+
+    <link href="/Content/NewLayout/dist-assets/css/plugins/toastr.css?ver=4.11231" rel="stylesheet" />
+    <script src="/Content/NewLayout/dist-assets/js/plugins/toastr.min.js?ver=4.11231"></script>
+    <script src="/Content/NewLayout/dist-assets/js/scripts/toastr.script.min.js?ver=4.11231"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".childNav li a").click(function () {
+                $.showprogress('Loading', 'Loading.....', '');
+                $("#rednerBody").load($(this).attr("href"), function () {
+                    abc();
+                });
+                history.pushState({}, "", $(this).attr("href"));
+                $(document).prop("title", $(this).prop("title"));
+                function abc() {
+                    $.hideprogress();
+                }
+                return false;
+            });
+        });
+    </script>
+    <script>
+        $("#leftpanel").hover(
+            function () {
+                $(this).addClass("open");
+            },
+            function () {
+                $(this).removeClass("open");
+            }
+        );
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var hd = $("#hdUniv").val();
+            if (hd === "SSSUT") {
+                $(".main-header").css({ 'background-color': '#3f9ef0', 'color': 'white' });
+                $(".fullHeader").css({ 'color': 'white' });
+            }
+            else {
+                $(".main-header").css({ 'background-color': 'white', 'color': 'white' });
+                $(".fullHeader").css({ 'color': 'white' });
+            }
+        });
+
+    </script>
+
+    
+
+
+</body>
+</html>

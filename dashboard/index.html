@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script language="javascript">
+        msg = "Sarvepalli Radhakrishnan University,Bhopal | Index";
+
+        msg = "..." + msg; pos = 0;
+        function scrollMSG() {
+            document.title = msg.substring(pos, msg.length) + msg.substring(0, pos);
+            pos++;
+            if (pos > msg.length) pos = 0
+            window.setTimeout("scrollMSG()", 200);
+        }
+        scrollMSG();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="/UniversityImage/logo/logo.jpeg">
+    <title></title>
+
+
+    <link href="/Content/NewLayout/dist-assets/css/custom.css" rel="stylesheet" />
+
+
+    <link href="/Content/NewLayout/dist-assets/css/themes/lite-purple.min.css?ver=4.11231" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        // Check login status
+        if (sessionStorage.getItem("isLoggedIn") !== "true") {
+            window.location.replace("/");
+        }
+    </script>
+
+</head>
+
+<body class="loading" style="background-color: #E9EDF4;">
+
+    <!-- Loader -->
+    <div id="loader"
+        class="d-flex align-items-center justify-content-center vh-100 bg-light position-fixed top-0 start-0 w-100 h-100">
+        <div class="loader-icon">
+            <img src="/UniversityImage/logo/logo.jpeg" alt="Logo" class="spin-logo circle-logo" />
+        </div>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+
+            <div class="logo-area">
+                <!-- Top brand bar -->
+                <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+                    <div class="container-fluid">
+                        <!-- Logo + University Name -->
+                        <a class="navbar-brand d-flex align-items-center" href="/">
+                            <!-- Other universities: hidden on mobile, visible on desktop -->
+                            <img src="/UniversityImage/logo/logo.jpeg" alt="Logo"
+                                class="img-fluid me-2 d-none d-lg-block browser-default" style="max-height:40px;" />
+
+                            <span class="fw-bold text-dark d-none d-lg-inline browser-default">
+                                <strong> Sarvepalli Radhakrishnan University,Bhopal</strong>
+                            </span>
+
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="header-right">
+                <div class="welcome">Welcome, MADHUR SHAILESHBHAI KATHROTIYA</div>
+                <button class="logout" onclick="logout()">Logout</button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="wrapper">
+
+        <div class="page-bar">
+            Dashboard
+            <span class="breadcrumb">Student Portal &nbsp;&gt;&nbsp; Dashboard</span>
+        </div>
+
+        <!-- STUDENT DETAILS -->
+        <section class="panel">
+
+            <div class="panel-title">
+                Student Details
+                <span class="small-note">Academic Year: 2020-23</span>
+            </div>
+
+            <div class="student-header">
+
+                <div class="student-left">
+                    <div class="student-name">MADHUR SHAILESHBHAI KATHROTIYA</div>
+
+                    <div class="student-line">
+                        <b>Student ID :</b> 4345212990
+                    </div>
+
+                    <div class="student-line">
+                        <b>Enrollment Number :</b> SRKUBCA20025
+                    </div>
+                </div>
+
+                <div class="student-right">
+                    <div class="student-course">
+                        <b>Bachelor of Computer Applications</b><br>
+                        Department of Computer Science <br>
+                        3rd Year
+                    </div>
+                </div>
+
+                <div class="student-photo overflow-hidden">
+                    <img src="https://ik.imagekit.io/i6ysztzbu/uploads/2020/ApplicantPhoto20201119113825908.jpg?updatedAt=1789133907107"
+                        alt="" height="100%" width="100%">
+                </div>
+
+            </div>
+
+            <div class="student-info">
+
+                <table class="info-table">
+
+
+                    <tr>
+                        <td class="label">Collage Name</td>
+                        <td class="value">Sarvepalli Radhakrishnan University,Bhopal</td>
+
+                        <td class="label">Institute Name</td>
+                        <td class="value">Faculty of Computer Application</td>
+                    </tr>
+                    <tr>
+                        <td class="label">E-Mail ID</td>
+                        <td class="value">madhurmk40@gmail.com</td>
+
+                        <td class="label">Mobile No.</td>
+                        <td class="value">+91 63581 63236</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">Category</td>
+                        <td class="value">General</td>
+
+                        <td class="label">Gender</td>
+                        <td class="value">Male</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">Current Address</td>
+                        <td class="value">
+                            21, Bhurakhiyadham Society. Nr. Navajivan Hotel, Sarthana Jakatnaka, Surat - 395006.
+                        </td>
+
+                        <td class="label">Disability</td>
+                        <td class="value">None</td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+
+            <div class="clear"></div>
+        </section>
+
+        <!-- =========================
+             SERVICES
+        ========================= -->
+
+        <div class="services-title" id="services">
+            Student Services
+        </div>
+
+        <section class="services">
+
+
+            <!-- PLACEMENT -->
+
+            <div class="service">
+
+                <div class="service-box blue" onclick="openPlacement()">
+
+                    <div class="service-head">
+                        Student Placement
+                    </div>
+
+                    <div class="service-body">
+
+                        <div class="service-icon">
+                            P
+                        </div>
+
+                        Placement registration,
+                        opportunities and related
+                        student services.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXAMINATION -->
+
+            <div class="service">
+
+                <div class="service-box purple" onclick="openExam()">
+
+                    <div class="service-head">
+                        Examination Information
+                    </div>
+
+                    <div class="service-body">
+
+                        <div class="service-icon">
+                            E
+                        </div>
+
+                        Exam Forms, Hall Tickets
+                        and Marksheets.
+
+                        Click here to view
+                        examination documents.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEEDBACK -->
+
+            <div class="service">
+
+                <div class="service-box green" onclick="openFeedback()">
+
+                    <div class="service-head">
+                        Student Feedback
+                    </div>
+
+                    <div class="service-body">
+
+                        <div class="service-icon">
+                            F
+                        </div>
+
+                        Submit feedback regarding
+                        academic and university
+                        services.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUPPORT -->
+
+            <div class="service">
+
+                <div class="service-box orange" onclick="openSupport()">
+
+                    <div class="service-head">
+                        Contact Support
+                    </div>
+
+                    <div class="service-body">
+
+                        <div class="service-icon">
+                            ?
+                        </div>
+
+                        Contact the university
+                        support office for
+                        assistance.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EXAMINATION PANEL
+             ONLY THIS PANEL CONTAINS MARKSHEET/YEAR SELECTION
+        ====================================================== -->
+        <div style="display: flex;justify-content: flex-end; margin-top: 10px; margin-bottom: 10px;">
+            <button class="close-btn" id="close-btn" onclick="closeService()">
+                Close [X]
+            </button>
+        </div>
+        <section class="panel exam-panel" id="examPanel">
+
+            <div class="panel-title">
+
+                <span>
+                    Examination Information
+                </span>
+
+
+
+            </div>
+
+
+            <div class="exam-form">
+
+                <table class="form-table">
+
+                    <tr>
+
+                        <td class="form-label">
+                            Select Document
+                        </td>
+
+                        <td class="form-control-cell">
+
+                            <select id="documentSelect">
+
+                                <option value="">
+                                    -- Please Select --
+                                </option>
+
+                                <option value="Marksheet">
+                                    Marksheets
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="form-label">
+                            Select Academic Year
+                        </td>
+
+                        <td class="form-control-cell">
+
+                            <select id="documentYear">
+
+                                <option value="">
+                                    -- Please Select --
+                                </option>
+
+                                <option value="2020-21">
+                                    2020-21
+                                </option>
+
+                                <option value="2021-22">
+                                    2021-22
+                                </option>
+
+                                <option value="2022-23">
+                                    2022-23
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="form-label">
+                        </td>
+
+                        <td>
+
+                            <button class="submit" onclick="openDocument()">
+                                Submit
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+
+                <div class="form-note">
+
+                    Note: Select the required examination
+                    document and academic year to display
+                    the document.
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT -->
+
+            <div class="document" id="documentBox">
+
+                <div class="document-toolbar">
+
+                    <strong id="documentTitle">
+                        Document
+                    </strong>
+
+                    <button class="print" onclick="downloadPDF()">
+                        Download PDF
+                    </button>
+
+                </div>
+
+                <div class="document-page" id="documentPage"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GENERAL SERVICE PANEL
+             USED ONLY FOR PLACEMENT / FEEDBACK / SUPPORT
+        ====================================================== -->
+
+        <section class="panel" id="servicePanel">
+
+            <div class="panel-title">
+                <span id="servicePanelTitle">
+                    Student Service
+                </span>
+            </div>
+
+            <div class="service-result" id="serviceResult">
+
+                <div class="service-message">
+
+                    <div class="service-message-icon">
+                        S
+                    </div>
+
+                    <h3>
+                        Student Services
+                    </h3>
+
+                    <p>
+                        Please select a service above to view
+                        the available information.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             NOTICE
+        ========================= -->
+
+        <div class="notice">
+
+            <b>Note:</b>
+
+            Please verify your student details carefully.
+            If any information is incorrect, contact the
+            university administration / student support
+            office for correction.
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <div style="text-align:center;">
+
+                © 2026 Sarvepalli Radhakrishnan University,
+                Bhopal. All Rights Reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- TOAST -->
+
+    <div class="toast" id="toast"></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =========================
+           ELEMENTS
+        ========================= */
+
+        const examPanel =
+            document.getElementById("examPanel");
+
+        const servicePanel =
+            document.getElementById("servicePanel");
+
+        const servicePanelTitle =
+            document.getElementById("servicePanelTitle");
+
+        const serviceResult =
+            document.getElementById("serviceResult");
+
+        const documentSelect =
+            document.getElementById("documentSelect");
+
+        const documentYear =
+            document.getElementById("documentYear");
+
+        const documentBox =
+            document.getElementById("documentBox");
+
+        const documentTitle =
+            document.getElementById("documentTitle");
+
+        const documentPage =
+            document.getElementById("documentPage");
+        const closeBtn = document.getElementById("close-btn");
+
+
+        /* =========================
+           SELECTED DOCUMENT
+        ========================= */
+
+        let selectedDocumentImage = "";
+        let selectedDocumentYear = "";
+
+
+        /* =====================================================
+           EXAMINATION
+           
+           IMPORTANT:
+           openExam() ONLY OPENS.
+           closeExam() ONLY CLOSES.
+           There is NO toggle here.
+        ====================================================== */
+
+        function openExam() {
+
+            /* Close other service panel */
+            servicePanel.classList.remove("open");
+
+            /* Open examination panel */
+            examPanel.classList.add("open");
+            closeBtn.classList.add("open");
+
+
+            /* Scroll to examination panel */
+            setTimeout(function () {
+
+                examPanel.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 50);
+
+        }
+
+
+
+
+        /* =====================================================
+           DOCUMENT SELECTION
+        ====================================================== */
+
+        documentSelect.addEventListener(
+            "change",
+            function () {
+
+                documentBox.classList.remove("show");
+
+                selectedDocumentImage = "";
+                selectedDocumentYear = "";
+
+            }
+        );
+
+
+        documentYear.addEventListener(
+            "change",
+            function () {
+
+                documentBox.classList.remove("show");
+
+                selectedDocumentImage = "";
+                selectedDocumentYear = "";
+
+            }
+        );
+
+
+        /* =====================================================
+           OPEN MARKSHEET
+        ====================================================== */
+
+        function openDocument() {
+
+            const type =
+                documentSelect.value;
+
+            const year =
+                documentYear.value;
+
+
+            /* Check document */
+
+            if (!type) {
+
+                showToast(
+                    "Please select document."
+                );
+
+                return;
+            }
+
+
+            /* Check year */
+
+            if (!year) {
+
+                showToast(
+                    "Please select academic year."
+                );
+
+                return;
+            }
+
+
+            /* ================================================
+               YEAR-WISE DOCUMENTS
+            ================================================ */
+
+            const yearDocuments = {
+
+                "2020-21": {
+
+                    title:
+                        "1st Year Marksheet",
+
+                    image:
+                        "https://ik.imagekit.io/i6ysztzbu/uploads/marksheets/Student_Marksheet_2020-21_4793874837487947.jpg"
+
+                },
+
+
+                "2021-22": {
+
+                    title:
+                        "2nd Year Marksheet",
+
+                    image:
+                        "https://ik.imagekit.io/i6ysztzbu/uploads/marksheets/Student_Marksheet_2021-22_4343873232675983798.jpg"
+
+                },
+
+
+                "2022-23": {
+
+                    title:
+                        "3rd Year Marksheet",
+
+                    image:
+                        "https://ik.imagekit.io/i6ysztzbu/uploads/marksheets/Student_Marksheet_2022-23_3287682763298632423393328.jpg"
+
+                }
+
+            };
+
+
+            const doc =
+                yearDocuments[year];
+
+
+            /* Document not available */
+
+            if (!doc) {
+
+                documentPage.innerHTML = `
+
+                    <div class="doc-header">
+
+                        <h2>
+                            Document Not Available
+                        </h2>
+
+                        <p>
+                            No document is available for
+                            Academic Year ${year}.
+                        </p>
+
+                    </div>
+
+                `;
+
+                documentBox.classList.add("show");
+
+                return;
+            }
+
+
+            /* Save selected document */
+
+            selectedDocumentImage =
+                doc.image;
+
+            selectedDocumentYear =
+                year;
+
+
+            /* Title */
+
+            documentTitle.textContent =
+                type + " - Academic Year " + year;
+
+
+            /* Show document */
+
+            documentPage.innerHTML = `
+              <section
+            class="panel exam-panel"
+            id="examPanel"
+        >
+
+            <div class="panel-title">
+
+                <span>
+                    Examination Information
+                </span>
+
+            </div>
+
+
+            <div class="exam-form">
+
+                <table class="form-table">
+
+                    <tr>
+
+                        <td class="form-label">
+                            Select Document
+                        </td>
+
+                        <td class="form-control-cell">
+
+                            <select id="documentSelect">
+
+                                <option value="">
+                                    -- Please Select --
+                                </option>
+
+                                <option value="Marksheet">
+                                    Marksheets
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="form-label">
+                            Select Academic Year
+                        </td>
+
+                        <td class="form-control-cell">
+
+                            <select id="documentYear">
+
+                                <option value="">
+                                    -- Please Select --
+                                </option>
+
+                                <option value="2020-21">
+                                    2020-21
+                                </option>
+
+                                <option value="2021-22">
+                                    2021-22
+                                </option>
+
+                                <option value="2022-23">
+                                    2022-23
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td class="form-label">
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="submit"
+                                onclick="openDocument()"
+                            >
+                                Submit
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+
+                <div class="form-note">
+
+                    Note: Select the required examination
+                    document and academic year to display
+                    the document.
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT -->
+
+            <div
+                class="document"
+                id="documentBox"
+            >
+
+                <div class="document-toolbar">
+
+                    <strong id="documentTitle">
+                        Document
+                    </strong>
+
+                    <button
+                        class="print"
+                        onclick="downloadPDF()"
+                    >
+                        Download PDF
+                    </button>
+
+                </div>
+
+                <div
+                    class="document-page"
+                    id="documentPage"
+                ></div>
+
+            </div>
+
+        </section>
+
+                <div class="doc-header">
+
+                    <h2>
+                        Sarvepalli Radhakrishnan University
+                    </h2>
+
+                    <p>
+                        Bhopal, Madhya Pradesh
+                    </p>
+
+                    <p>
+                        ${type} - Academic Year ${year}
+                    </p>
+
+                </div>
+
+
+                <div class="document-card">
+
+                    <div class="document-title">
+
+                        <strong>
+                            ${doc.title}
+                        </strong>
+
+                        <span>
+                            Academic Year ${year}
+                        </span>
+
+                    </div>
+
+
+                    <div class="document-image">
+
+                        <img
+                            src="${doc.image}"
+                            alt="${doc.title}"
+                        >
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            documentBox.classList.add("show");
+
+
+            /* Scroll */
+
+            setTimeout(function () {
+
+                documentBox.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 80);
+
+        }
+
+
+        /* =====================================================
+           PDF DOWNLOAD
+           
+           PDF PAGE = ORIGINAL IMAGE SIZE
+           
+           No A4.
+           No second addImage.
+        ====================================================== */
+
+        async function downloadPDF() {
+
+            if (
+                !documentBox.classList.contains("show")
+            ) {
+
+                showToast(
+                    "Please open a document first."
+                );
+
+                return;
+            }
+
+
+            if (!selectedDocumentImage) {
+
+                showToast(
+                    "Please open a document first."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                showToast(
+                    "Preparing PDF..."
+                );
+
+
+                const response =
+                    await fetch(
+                        selectedDocumentImage
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Image could not be loaded."
+                    );
+
+                }
+
+
+                const blob =
+                    await response.blob();
+
+
+                const image =
+                    new Image();
+
+
+                image.onload = function () {
+
+                    const jsPDF =
+                        window.jspdf.jsPDF;
+
+
+                    /* Original image dimensions */
+
+                    const imageWidth =
+                        image.naturalWidth;
+
+                    const imageHeight =
+                        image.naturalHeight;
+
+
+                    /* Orientation */
+
+                    const orientation =
+                        imageWidth > imageHeight
+                            ? "landscape"
+                            : "portrait";
+
+
+                    /* Create PDF with ORIGINAL dimensions */
+
+                    const pdf =
+                        new jsPDF({
+
+                            orientation:
+                                orientation,
+
+                            unit:
+                                "px",
+
+                            format: [
+                                imageWidth,
+                                imageHeight
+                            ]
+
+                        });
+
+
+                    /* Add image ONCE */
+
+                    pdf.addImage(
+                        image,
+                        "JPEG",
+                        0,
+                        0,
+                        imageWidth,
+                        imageHeight
+                    );
+
+
+                    /* Download */
+
+                    pdf.save(
+                        `Marksheet-${selectedDocumentYear}.pdf`
+                    );
+
+
+                    /* Cleanup */
+
+                    URL.revokeObjectURL(
+                        image.src
+                    );
+
+
+                    showToast(
+                        "PDF downloaded successfully."
+                    );
+
+                };
+
+
+                image.onerror = function () {
+
+                    showToast(
+                        "Unable to load marksheet image."
+                    );
+
+                };
+
+
+                image.src =
+                    URL.createObjectURL(blob);
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    "PDF download failed. Please check ImageKit CORS settings."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PLACEMENT
+           
+           ONLY OPENS.
+        ====================================================== */
+
+        function openPlacement() {
+
+            /* Close examination */
+            examPanel.classList.remove("open");
+            closeBtn.classList.add("open");
+
+
+            /* Set title */
+
+            servicePanelTitle.textContent =
+                "Student Placement";
+
+
+            /* Set content */
+
+            serviceResult.innerHTML = `
+
+                <div class="service-message">
+
+                    <div class="service-message-icon">
+                        P
+                    </div>
+
+                    <h3>
+                        No Placement Information Available
+                    </h3>
+
+                    <p>
+                        There are currently no placement
+                        opportunities or placement
+                        registrations available for this student.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            /* Open */
+
+            servicePanel.classList.add("open");
+
+
+            /* Scroll */
+
+            setTimeout(function () {
+
+                servicePanel.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 50);
+
+        }
+
+
+        /* =====================================================
+           FEEDBACK
+           
+           ONLY OPENS.
+        ====================================================== */
+
+        function openFeedback() {
+
+            /* Close examination */
+            examPanel.classList.remove("open");
+            closeBtn.classList.add("open");
+
+            /* Title */
+
+            servicePanelTitle.textContent =
+                "Student Feedback";
+
+
+            /* Content */
+
+            serviceResult.innerHTML = `
+
+                <div class="service-message">
+
+                    <div class="service-message-icon">
+                        F
+                    </div>
+
+                    <h3>
+                        No Feedback Available
+                    </h3>
+
+                    <p>
+                        There are currently no feedback
+                        forms or feedback requests available
+                        for this student.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            /* Open */
+
+            servicePanel.classList.add("open");
+
+
+            /* Scroll */
+
+            setTimeout(function () {
+
+                servicePanel.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 50);
+
+        }
+
+
+        /* =====================================================
+           CONTACT SUPPORT
+           
+           ONLY OPENS.
+        ====================================================== */
+
+        function openSupport() {
+
+            /* Close examination */
+            examPanel.classList.remove("open");
+            closeBtn.classList.add("open");
+
+            /* Title */
+
+            servicePanelTitle.textContent =
+                "Contact Support";
+
+
+            /* Content */
+
+            serviceResult.innerHTML = `
+
+                <div class="support-container">
+
+                    <div class="support-title">
+                        University Student Support
+                    </div>
+
+
+                    <div class="support-row">
+
+                        <div class="support-icon">
+                            P
+                        </div>
+
+                        <div class="support-label">
+                            Phone
+                        </div>
+
+                        <div class="support-content">
+                            +91 075547 00983
+                        </div>
+
+                    </div>
+
+
+                    <div class="support-row">
+
+                        <div class="support-icon">
+                            E
+                        </div>
+
+                        <div class="support-label">
+                            Email
+                        </div>
+
+                        <div class="support-content">
+                            exam@srkuedu.in
+                        </div>
+
+                    </div>
+
+
+                    <div class="support-row">
+
+                        <div class="support-icon">
+                            A
+                        </div>
+
+                        <div class="support-label">
+                            Address
+                        </div>
+
+                        <div class="support-content">
+                            NH-12, Hoshangabad Road, Jatkhedi, Misrod, Bhopal, Madhya Pradesh 462026
+                        </div>
+
+                    </div>
+
+
+                    <div class="support-row">
+
+                        <div class="support-icon">
+                            S
+                        </div>
+
+                        <div class="support-label">
+                            Support Hours
+                        </div>
+
+                        <div class="support-content">
+                            Monday - Saturday |
+                            10:00 AM - 5:00 PM
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            /* Open */
+
+            servicePanel.classList.add("open");
+
+
+            /* Scroll */
+
+            setTimeout(function () {
+
+                servicePanel.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 50);
+
+        }
+
+
+        /* =====================================================
+           CLOSE GENERAL SERVICE
+           
+           ONLY THE CLOSE BUTTON CALLS THIS.
+        ====================================================== */
+
+        function closeService() {
+            servicePanel.classList.remove("open");
+            examPanel.classList.remove("open");
+            closeBtn.classList.remove("open");
+            documentPage.innerHTML = ``
+        }
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add("show");
+
+
+            clearTimeout(
+                window.toastTimer
+            );
+
+
+            window.toastTimer =
+                setTimeout(function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                }, 2200);
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ====================================================== */
+
+        function logout() {
+
+            if (
+                confirm(
+                    "Are you sure you want to logout?"
+                )
+            ) {
+
+                showToast(
+                    "Logout successful."
+                );
+                sessionStorage.removeItem("isLoggedIn");
+                sessionStorage.removeItem("username");
+
+                setTimeout(function () {
+
+                    window.location.href =
+                        "/";
+
+                }, 700);
+
+            }
+
+        }
+
+    </script>
+
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("loader");
+            // Delay before hiding (e.g. 2000ms)
+            setTimeout(() => {
+                loader.classList.add("hidden");
+            }, 2000);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,959 @@
+#loader {
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Circle styling */
+.circle-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  /* makes it perfectly circular */
+  border: 4px solid #0d6efd;
+  /* optional border in Bootstrap primary color */
+  padding: 8px;
+  /* spacing inside border */
+  background: #fff;
+  /* white background behind logo */
+  object-fit: contain;
+  /* keeps logo aspect ratio */
+}
+
+/* Spin animation */
+.spin-logo {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.captcha-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#captchaCanvas {
+  width: 250px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.refresh-btn {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 6px;
+  background: #eee;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.refresh-btn:hover {
+  background: #ddd;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 6px;
+  background: #1d4ed8;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #1e40af;
+}
+
+.captcha-error {
+  display: none;
+  margin-top: 6px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.success {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  background: #dcfce7;
+  color: #166534;
+  text-align: center;
+}
+
+/* Login validation messages - UI/layout unchanged */
+.login-validation-error {
+  display: none;
+  margin-top: 5px;
+  padding-left: 12px;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.login-input-error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 0.1rem rgba(220, 38, 38, 0.12) !important;
+}
+
+.login-input-success {
+  border-color: #198754 !important;
+}
+
+/* ============ Dashboard ================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #333;
+  background: #e9eef5;
+}
+
+/* TOP HEADER */
+.header {
+  height: 72px;
+  background: #68379a;
+  border-bottom: 4px solid #4d2875;
+  color: #fff;
+}
+
+.header-inner {
+  width: 1180px;
+  max-width: calc(100% - 30px);
+  height: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  width: 46px;
+  height: 46px;
+  background: #fff;
+  color: #63368f;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.university-name {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.university-sub {
+  font-size: 11px;
+  margin-top: 4px;
+  color: #eadff5;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.welcome {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.logout {
+  background: #fff;
+  color: #5d328d;
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #eee;
+}
+
+/* MAIN WRAPPER */
+.wrapper {
+  width: 1180px;
+  max-width: calc(100% - 30px);
+  margin: 15px auto 25px;
+}
+
+/* BREADCRUMB / PAGE TITLE */
+.page-bar {
+  height: 39px;
+  background: #f5f5f5;
+  border: 1px solid #c9c9c9;
+  border-radius: 3px 3px 0 0;
+  padding: 10px 13px;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.breadcrumb {
+  float: right;
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+  padding-top: 2px;
+}
+
+/* COMMON PANEL */
+.panel {
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  border-top: 3px solid #6d399d;
+  border-radius: 0 0 3px 3px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.panel-title {
+  height: 37px;
+  background: #ededed;
+  border-bottom: 1px solid #c9c9c9;
+  padding: 10px 12px;
+  color: #3d3d3d;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.panel-title .small-note {
+  float: right;
+  font-weight: normal;
+  color: #777;
+  font-size: 11px;
+}
+
+/* STUDENT INFORMATION */
+.student-header {
+  background: #68379a;
+  color: #fff;
+  min-height: 115px;
+  padding: 18px 20px;
+  position: relative;
+}
+
+.student-left {
+  float: left;
+  width: 68%;
+}
+
+.student-right {
+  float: right;
+  width: 29%;
+  padding-top: 3px;
+}
+
+.student-name {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0 0 9px;
+}
+
+.student-line {
+  line-height: 22px;
+  font-size: 12px;
+}
+
+.student-line b {
+  color: #fff;
+}
+
+.student-course {
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.student-photo {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%);
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: #eee;
+  color: #075a88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  font-weight: bold;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.student-info {
+  padding: 38px 15px 0;
+  overflow: hidden;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info-table td {
+  border: 1px solid #ddd;
+  padding: 9px 10px;
+  vertical-align: top;
+}
+
+.info-table .label {
+  width: 14%;
+  background: #f2f2f2;
+  color: #444;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.info-table .value {
+  width: 36%;
+  color: #333;
+  font-size: 12px;
+}
+
+.info-table .value strong {
+  color: #5f348c;
+}
+
+.clear {
+  clear: both;
+}
+
+/* SERVICE TITLE */
+.services-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  margin: 18px 0 8px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 7px;
+}
+
+/* FOUR BOXES */
+.services {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 10px 0;
+  margin-left: -10px;
+  width: calc(100% + 20px);
+}
+
+.service {
+  display: table-cell;
+  width: 25%;
+  padding: 0 10px;
+  vertical-align: top;
+}
+
+.service-box {
+  height: 128px;
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.service-box:hover {
+  border-color: #8f6ab0;
+}
+
+.service-head {
+  height: 37px;
+  padding: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.blue .service-head {
+  background: #3487b8;
+}
+
+.purple .service-head {
+  background: #6c419b;
+}
+
+.green .service-head {
+  background: #4b9b68;
+}
+
+.orange .service-head {
+  background: #d47b2c;
+}
+
+.service-body {
+  padding: 14px 10px;
+  color: #666;
+  line-height: 18px;
+  font-size: 11px;
+}
+
+.service-icon {
+  float: right;
+  width: 30px;
+  height: 30px;
+  margin-left: 8px;
+  margin-bottom: 4px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* EXAMINATION PANEL */
+.exam-panel {
+  display: none;
+  margin-top: 15px;
+}
+
+.exam-panel.open {
+  display: block;
+}
+
+.exam-tabs {
+  padding: 12px;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.exam-tab {
+  float: left;
+  width: 31.7%;
+  margin-right: 2.45%;
+  min-height: 62px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  border-radius: 3px;
+  padding: 10px 12px;
+  color: #444;
+  cursor: pointer;
+}
+
+.exam-tab:last-child {
+  margin-right: 0;
+}
+
+.exam-tab:hover,
+.exam-tab.active {
+  border-color: #6d399d;
+  background: #f4eff8;
+}
+
+.exam-tab .num {
+  float: left;
+  width: 29px;
+  height: 29px;
+  line-height: 29px;
+  text-align: center;
+  background: #6d399d;
+  color: #fff;
+  margin-right: 9px;
+  font-weight: bold;
+}
+
+.exam-tab .tab-title {
+  display: block;
+  font-weight: bold;
+  font-size: 12px;
+  padding-top: 1px;
+}
+
+.exam-tab .tab-description {
+  display: block;
+  color: #888;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+/* FORM */
+.exam-form {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.form-table td {
+  padding: 8px;
+}
+
+.form-table .form-label {
+  width: 150px;
+  font-weight: bold;
+  color: #444;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+.form-table .form-control-cell {
+  border: 1px solid #ddd;
+}
+
+select {
+  height: 32px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  background: #fff;
+  padding: 5px 8px;
+  color: #333;
+  width: 100%;
+  font-size: 12px;
+}
+
+.submit {
+  background: #5f3390;
+  color: #fff;
+  border: 1px solid #48246f;
+  border-radius: 3px;
+  padding: 7px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: #492572;
+}
+
+.form-note {
+  color: #777;
+  font-size: 10px;
+  margin-top: 8px;
+}
+
+/* DOCUMENT */
+.document {
+  display: none;
+  margin: 0 15px 15px;
+  border: 1px solid #aaa;
+  background: #fff;
+}
+
+.document.show {
+  display: block;
+}
+
+.document-toolbar {
+  height: 38px;
+  padding: 9px 10px;
+  background: #e9e9e9;
+  border-bottom: 1px solid #bbb;
+}
+
+.document-toolbar strong {
+  font-size: 12px;
+}
+
+.print {
+  float: right;
+  background: #fff;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.print:hover {
+  background: #eee;
+}
+
+.document-page {
+  padding: 30px;
+  min-height: 310px;
+}
+
+.doc-header {
+  text-align: center;
+  border-bottom: 2px solid #333;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.doc-header h2 {
+  margin: 0;
+  font-size: 19px;
+  color: #333;
+}
+
+.doc-header p {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: #666;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.doc-table th,
+.doc-table td {
+  border: 1px solid #aaa;
+  padding: 8px;
+  text-align: left;
+}
+
+.doc-table th {
+  background: #eee;
+  width: 32%;
+}
+
+.status {
+  color: #16733c;
+  font-weight: bold;
+}
+
+/* NOTICE */
+.notice {
+  margin-top: 15px;
+  background: #fff;
+  border: 1px solid #d1c39c;
+  border-left: 4px solid #c49421;
+  padding: 10px 12px;
+  color: #6a5a2b;
+  line-height: 18px;
+  font-size: 11px;
+}
+
+/* FOOTER */
+.footer {
+  background: #fff;
+  border-top: 1px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
+  color: #666;
+  font-size: 11px;
+  padding: 0;
+}
+
+.footer-inner {
+  width: 1180px;
+  max-width: calc(100% - 30px);
+  margin: auto;
+  min-height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer strong {
+  color: #555;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #333;
+  color: #fff;
+  padding: 9px 13px;
+  border-radius: 3px;
+  font-size: 11px;
+  display: none;
+  z-index: 1000;
+}
+
+.toast.show {
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .header {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .header-inner {
+    height: auto;
+    display: block;
+  }
+
+  .header-right {
+    margin-top: 9px;
+  }
+
+  .student-left,
+  .student-right {
+    float: none;
+    width: 100%;
+  }
+
+  .student-right {
+    margin-top: 10px;
+  }
+
+  .student-header {
+    padding-bottom: 22px;
+  }
+
+  .services {
+    display: block;
+  }
+
+  .service {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .service-box {
+    height: auto;
+    min-height: 105px;
+  }
+
+  .exam-tab {
+    float: none;
+    width: 100%;
+    margin: 0 0 7px;
+  }
+
+  .exam-tab:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapper,
+  .header-inner,
+  .footer-inner {
+    max-width: calc(100% - 16px);
+  }
+
+  .breadcrumb {
+    display: none;
+  }
+
+  .student-name {
+    font-size: 20px;
+  }
+
+  .info-table,
+  .info-table tbody,
+  .info-table tr,
+  .info-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .info-table .label {
+    padding-bottom: 4px;
+    border-bottom: 0;
+  }
+
+  .info-table .value {
+    padding-top: 4px;
+  }
+
+  .footer-inner {
+    display: block;
+    padding: 10px 0;
+    line-height: 18px;
+  }
+
+  .footer-inner div + div {
+    margin-top: 4px;
+  }
+}
+
+/* PRINT */
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .header,
+  .page-bar,
+  .services-title,
+  .services,
+  .notice,
+  .footer,
+  .exam-panel:not(.open) {
+    display: none !important;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .document {
+    display: block !important;
+    margin: 0;
+    border: 0;
+  }
+
+  .document-toolbar {
+    display: none;
+  }
+
+  .document-page {
+    padding: 10px;
+  }
+}
+
+#servicePanel {
+  display: none;
+}
+
+#servicePanel.open {
+  display: block;
+}
+#close-btn {
+  display: none;
+}
+
+#close-btn.open {
+  display: block;
+}
+
+.service-message {
+  margin: 20px 0;
+  padding: 35px 25px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.service-message-icon {
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  margin: 0 auto 15px;
+  background: #eeeeee;
+  border: 1px solid #ccc;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.service-message h3 {
+  margin: 10px 0;
+  font-size: 20px;
+  color: #444;
+}
+
+.service-message p {
+  margin: 0;
+  color: #777;
+}
+
+.support-container {
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.support-title {
+  padding: 14px 18px;
+  background: #eeeeee;
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+}
+
+.support-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.support-row:last-child {
+  border-bottom: none;
+}
+
+.support-icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #eeeeee;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  color: #555;
+}
+
+.support-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.support-content strong {
+  font-size: 14px;
+  color: #444;
+}
+
+.support-content span {
+  font-size: 14px;
+  color: #777;
+}

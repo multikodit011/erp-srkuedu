@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Server Error in '/' Application.</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 8px;
+
+            background: #ffffff;
+
+            color: #000000;
+
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+
+            font-size: 11px;
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #ff0000;
+
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        h2 {
+            margin: 15px 0;
+
+            color: #990000;
+
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+
+            font-size: 18px;
+            font-weight: normal;
+
+            font-style: italic;
+        }
+
+        .separator {
+            width: 100%;
+
+            height: 1px;
+
+            background: #cccccc;
+
+            margin-top: 10px;
+        }
+
+        .description {
+            margin-top: 10px;
+
+            line-height: 1.5;
+        }
+
+        .description b {
+            font-weight: bold;
+        }
+
+        .requested-url {
+            margin-top: 10px;
+        }
+
+        .requested-url b {
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h1>
+        Server Error in '/' Application.
+    </h1>
+
+
+    <div class="separator"></div>
+
+
+    <h2>
+        The resource cannot be found.
+    </h2>
+
+
+    <div class="description">
+
+        <b>Description:</b>
+
+        HTTP 404. The resource you are looking for
+        (or one of its dependencies) could have been
+        removed, had its name changed, or is temporarily
+        unavailable. Please review the following URL
+        and make sure that it is spelled correctly.
+
+    </div>
+
+
+    <div class="requested-url">
+
+        <b>Requested URL:</b>
+
+        <span id="requestedUrl">
+        </span>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * Show the current URL automatically.
+         *
+         * Example:
+         *
+         * /gewge
+         * /abc
+         * /test
+         */
+
+        document.getElementById("requestedUrl").textContent =
+            window.location.pathname;
+
+    </script>
+
+
+</body>
+
+</html>
