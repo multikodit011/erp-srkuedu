@@ -96,23 +96,7 @@
 
 
             <script src="/Content/js/212_sweetalert.min.js"></script>
-            <!-- <script type="text/javascript">
-                var url = window.location.href.substring(0, 23);
-                const bc = new BroadcastChannel(url);
-                bc.onmessage = (event) => {
-                    if (event.data === 'Am I the first?') {
-                        bc.postMessage('No you are not.');
-                        alert('Another tab of this site just got opened');
-                        window.close();
-                    }
-                    if (event.data === 'No you are not.') {
-                        window.open(window.location.href, '_self', ''); //bug fix
-                        window.location.href = "/";
-                        window.close();
-                    }
-                };
-                bc.postMessage('Am I the first?');
-            </script> -->
+
             <style>
                 #CaptchaImage {
                     width: 70%;
@@ -218,13 +202,14 @@
                                             </div>
                                             <!-- Captcha -->
                                             <div class="mt-3">
-                                                <div class="card border-0 shadow-sm rounded p-3 bg-light">
+                                                <div class="card border-0 shadow-sm rounded p-3"
+                                                    style="background-color: #E9EDF4;">
                                                     <div class="captcha-box text-center text-info font-weight-bold">
 
                                                         <div class="form-group">
 
-                                                            <div class="captcha-row position-relative m-auto"
-                                                                style="height: 30px; width: 250px;">
+                                                            <div class="captcha-row position-relative mx-auto mt-3"
+                                                                style="height: 30px; width: 70%;">
                                                                 <img src="./DefaultCaptcha/defaultBg.png" alt=""
                                                                     height="100%" width="100%"
                                                                     class="position-absolute top-0 start-0" />
@@ -244,7 +229,7 @@
 
                                                         </div>
 
-                                                        <br />Enter Above Captcha<br />
+                                                        Enter Above Captcha<br />
                                                         <input autocomplete="off" autocorrect="off" data-val="true"
                                                             data-val-required="Captcha is required"
                                                             id="CaptchaInputText" name="CaptchaInputText" type="text"
@@ -319,10 +304,8 @@
 
         let captchaText = "";
 
-        // Characters used in CAPTCHA
         const captchaChars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 
-        // Generate random CAPTCHA text
         function generateCaptchaText(length = 4) {
             let text = "";
 
@@ -335,14 +318,10 @@
             return text;
         }
 
-        // Random number
         function random(min, max) {
             return Math.random() * (max - min) + min;
         }
 
-
-        drawCaptcha();
-        // Draw CAPTCHA
         function drawCaptcha() {
 
             captchaText = generateCaptchaText(4);
@@ -350,20 +329,17 @@
             const width = captchaCanvas.width;
             const height = captchaCanvas.height;
 
-            // Clear canvas
             ctx.clearRect(0, 0, width, height);
 
 
-
-            // --------------------------------
-            // LIGHT BLUE NOISE
-            // --------------------------------
+            /* --------------------------------
+               LIGHT BLUE NOISE
+            -------------------------------- */
 
             for (let i = 0; i < 420; i++) {
 
                 const x = Math.random() * width;
                 const y = Math.random() * height;
-
                 const size = random(0.3, 1.2);
 
                 ctx.fillStyle = Math.random() > 0.5
@@ -373,9 +349,10 @@
                 ctx.fillRect(x, y, size, size);
             }
 
-            // --------------------------------
-            // SMALL BLUE SCRATCH LINES
-            // --------------------------------
+
+            /* --------------------------------
+               SMALL BLUE SCRATCH LINES
+            -------------------------------- */
 
             for (let i = 0; i < 55; i++) {
 
@@ -397,40 +374,59 @@
                 ctx.stroke();
             }
 
-            // --------------------------------
-            // DISTORTED CAPTCHA TEXT
-            // --------------------------------
+
+            /* --------------------------------
+               CAPTCHA TEXT
+            -------------------------------- */
+
+            const fontSize = 36;
+            const spacing = 28;
 
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
 
-            const fontSize = 30;
-            const spacing = 26;
+            ctx.font = `bold ${fontSize}px "Roboto Slab", sans-serif`;
+
+            /*
+               Calculate total width of CAPTCHA
+               so it can be perfectly centered.
+            */
+
+            const totalWidth =
+                (captchaText.length - 1) * spacing;
+
+            const startX =
+                (width - totalWidth) / 2;
+
 
             for (let i = 0; i < captchaText.length; i++) {
 
                 const char = captchaText[i];
 
-                const x = 18 + i * spacing;
-                const y = height / 2 + random(-3, 3);
+                const x = startX + i * spacing;
+
+                const y =
+                    height / 2 + random(-3, 3);
 
                 ctx.save();
 
-                // Random rotation
-                const rotation = random(-0.25, 0.25);
+                /* Random rotation */
+                const rotation =
+                    random(-0.25, 0.25);
 
-                // Random vertical stretch
-                const scaleY = random(0.85, 1.15);
+                /* Random vertical stretch */
+                const scaleY =
+                    random(0.85, 1.15);
 
                 ctx.translate(x, y);
+
                 ctx.rotate(rotation);
+
                 ctx.scale(1, scaleY);
 
-                // Slight text shadow/noise
                 ctx.font =
-                    `bold ${random(27, 31)}px Arial`;
+                    `bold ${random(27, 31)}px "Roboto Slab", sans-serif`;
 
-                // Main blue color
                 ctx.fillStyle = "#1011FB";
 
                 ctx.fillText(char, 0, 0);
@@ -438,9 +434,10 @@
                 ctx.restore();
             }
 
-            // --------------------------------
-            // BLUE DISTORTION MARKS OVER TEXT
-            // --------------------------------
+
+            /* --------------------------------
+               BLUE DISTORTION MARKS
+            -------------------------------- */
 
             for (let i = 0; i < 45; i++) {
 
@@ -459,14 +456,16 @@
                 ctx.strokeStyle =
                     "rgba(35, 55, 180, 0.35)";
 
-                ctx.lineWidth = random(0.4, 1);
+                ctx.lineWidth =
+                    random(0.4, 1);
 
                 ctx.stroke();
             }
 
-            // --------------------------------
-            // VERY LIGHT FINAL NOISE
-            // --------------------------------
+
+            /* --------------------------------
+               FINAL LIGHT NOISE
+            -------------------------------- */
 
             for (let i = 0; i < 120; i++) {
 
@@ -486,17 +485,18 @@
         }
 
 
-        // --------------------------------
-        // REFRESH CAPTCHA ON CLICK
-        // --------------------------------
+        /* --------------------------------
+           REFRESH CAPTCHA ON CLICK
+        -------------------------------- */
 
         captchaCanvas.addEventListener("click", function () {
             drawCaptcha();
         });
 
 
-        // Initial CAPTCHA
+        /* Initial CAPTCHA */
         drawCaptcha();
+
     </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>

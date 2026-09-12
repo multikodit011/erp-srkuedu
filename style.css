@@ -50,7 +50,7 @@
 }
 
 #captchaCanvas {
-  width: 250px;
+  width: 100%;
   height: 30px;
   cursor: pointer;
 }
@@ -336,16 +336,18 @@ body {
   padding: 38px 15px 0;
   overflow: hidden;
 }
-
 .info-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .info-table td {
   border: 1px solid #ddd;
   padding: 9px 10px;
   vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .info-table .label {
@@ -360,12 +362,103 @@ body {
   width: 36%;
   color: #333;
   font-size: 12px;
+  line-height: 1.5;
 }
 
 .info-table .value strong {
   color: #5f348c;
 }
 
+/* ========================================
+   TABLET
+======================================== */
+@media (max-width: 768px) {
+  .student-info {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .info-table {
+    width: 100%;
+    table-layout: auto;
+  }
+
+  .info-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .info-table .label {
+    width: 18%;
+    font-size: 10px;
+  }
+
+  .info-table .value {
+    width: 32%;
+    font-size: 11px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+@media (max-width: 600px) {
+  .student-info {
+    width: 100%;
+  }
+
+  .info-table,
+  .info-table tbody,
+  .info-table tr,
+  .info-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .info-table {
+    border: 1px solid #ddd;
+  }
+
+  .info-table tr {
+    border-bottom: 0;
+  }
+
+  /* Label */
+  .info-table .label {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 7px 9px;
+    font-size: 10px;
+    font-weight: bold;
+    border-bottom: 0;
+  }
+
+  /* Value */
+  .info-table .value {
+    width: 100%;
+    padding: 8px 9px;
+    font-size: 12px;
+    line-height: 1.5;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+@media (max-width: 400px) {
+  .info-table .label {
+    font-size: 9px;
+    padding: 6px 8px;
+  }
+
+  .info-table .value {
+    font-size: 11px;
+    padding: 7px 8px;
+  }
+}
 .clear {
   clear: both;
 }
